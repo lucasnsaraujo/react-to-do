@@ -1,5 +1,7 @@
 import React from "react";
 import Card from "./Card";
+import { useDispatch } from "react-redux";
+import { deleteItem, changeDone } from "../actions/listAction";
 
 function DoneImg(props) {
   if (props.done) {
@@ -10,6 +12,7 @@ function DoneImg(props) {
 }
 
 function ListItem(props) {
+  const dispatch = useDispatch();
   return (
     <>
       <li key={props.item.id}>
@@ -18,14 +21,14 @@ function ListItem(props) {
           <div className="buttons">
             <button
               onClick={() => {
-                props.onDeleteItem(props.item);
+                dispatch(deleteItem(props.item.id));
               }}
             >
               <img src="./assets/delete.png" alt="Delete" />
             </button>
             <button
               onClick={() => {
-                props.onDoneItem(props.item);
+                dispatch(changeDone(props.item.id));
               }}
             >
               <DoneImg done={props.item.done}></DoneImg>
